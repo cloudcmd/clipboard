@@ -224,7 +224,7 @@ test('clipboard: writeText: reject', async (t) => {
         t.fail('should not resolve');
     } catch(e) {
         t.pass('should reject');
-    };
+    }
     
     global.navigator = navigator;
     global.document = document;
