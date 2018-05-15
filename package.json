@@ -1,0 +1,41 @@
+{
+  "name": "@cloudcmd/clipboard",
+  "version": "1.0.0",
+  "main": "legacy/clipboard.js",
+  "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
+  "description": "Clipboard API polyfill",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cloudcmd/clipboard.git"
+  },
+  "scripts": {
+    "lint": "eslint lib test",
+    "watch:coverage": "npm run watcher -- npm run coverage",
+    "watch:test": "npm run watcher -- npm test",
+    "watcher": "nodemon -w test -w lib --exec",
+    "test": "tape test/*.js",
+    "coverage": "nyc npm test",
+    "report": "nyc report --reporter=text-lcov | coveralls",
+    "build": "redrun build:*",
+    "prebuild": "redrun clean",
+    "build:js": "redrun 6to5 legacy:index",
+    "legacy:index": "echo \"module.exports = require('./clipboard');\" > legacy/index.js",
+    "clean": "rimraf legacy",
+    "wisdom": "npm run build",
+    "6to5": "babel -d legacy lib"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.4",
+    "nyc": "^11.7.3",
+    "redrun": "^6.0.4",
+    "sinon": "^5.0.7",
+    "sinon-called-with-diff": "^2.1.1",
+    "tape": "^4.9.0",
+    "try-to-catch": "^1.0.2"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
