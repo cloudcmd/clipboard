@@ -1,6 +1,6 @@
 # Async Clipboard [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 
-[Async clipboard api](https://w3c.github.io/clipboard-apis/) uses `navigator.clipboard` if available or polyfill.
+[Async clipboard api](https://w3c.github.io/clipboard-apis/) uses `navigator.clipboard` if available or smallest `polyfill` in the world.
 
 ## Install
 
