@@ -72,7 +72,8 @@ test('clipboard: writeText: createElement', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub()
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
     };
     
     const createElement = sinon.stub().returns(el);
@@ -100,7 +101,8 @@ test('clipboard: writeText: appendChild', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub()
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
     };
     
     const appendChild = sinon.stub();
@@ -130,7 +132,8 @@ test('clipboard: writeText: select', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub()
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
     };
     
     const createElement = sinon.stub().returns(el);
@@ -182,7 +185,8 @@ test('clipboard: writeText: removeChild', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub()
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
     };
     
     const createElement = sinon.stub().returns(el);
@@ -197,6 +201,68 @@ test('clipboard: writeText: removeChild', async (t) => {
     await writeText(value);
     
     t.ok(removeChild.calledWith(el), 'should call removeChild');
+    
+    global.navigator = navigator;
+    global.document = document;
+    
+    t.end();
+});
+
+test('clipboard: writeText: setAttribute', async (t) => {
+    const {
+        navigator,
+        document,
+    } = global;
+    
+    global.navigator = {};
+    
+    const setAttribute = sinon.stub();
+    
+    const el = {
+        select: sinon.stub(),
+        setAttribute,
+    };
+    
+    const createElement = sinon.stub().returns(el);
+    global.document = createDocument({
+        createElement,
+    });
+    
+    const {writeText} = rerequire('../lib/clipboard');
+    const value = 'hello';
+    await writeText(value);
+    
+    t.ok(setAttribute.calledWith('aria-hidden', 'true'), 'should call setAttribute');
+    
+    global.navigator = navigator;
+    global.document = document;
+    
+    t.end();
+});
+
+test('clipboard: writeText: hidden', async (t) => {
+    const {
+        navigator,
+        document,
+    } = global;
+    
+    global.navigator = {};
+    
+    const el = {
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
+    };
+    
+    const createElement = sinon.stub().returns(el);
+    global.document = createDocument({
+        createElement,
+    });
+    
+    const {writeText} = rerequire('../lib/clipboard');
+    const value = 'hello';
+    await writeText(value);
+    
+    t.ok(el.hidden, 'should set element.hidden');
     
     global.navigator = navigator;
     global.document = document;
@@ -234,7 +300,8 @@ test('clipboard: writeText: reject', async (t) => {
 
 function createDocument({createElement, execCommand, removeChild, appendChild} = {}) {
     const el = {
-        select: sinon.stub()
+        select: sinon.stub(),
+        setAttribute: sinon.stub(),
     };
     
     createElement = createElement || sinon.stub().returns(el);
