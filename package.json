@@ -1,6 +1,6 @@
 {
   "name": "@cloudcmd/clipboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "legacy/clipboard.js",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Clipboard API polyfill",

@@ -1,0 +1,10 @@
+2018.07.13, v1.0.1
+
+fix:
+- (clipboard) visually hide the textarea element: prevent jumping on smaller viewports—specifically iOS devices (#1)
+
+feature:
+- (package) sinon v6.1.3
+- (package) eslint v5.1.0
+- (package) nyc v12.0.2
+
