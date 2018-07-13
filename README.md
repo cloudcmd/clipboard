@@ -1,4 +1,4 @@
-# Async Clipboard [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
+# Async Clipboard [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 
 [Async clipboard api](https://w3c.github.io/clipboard-apis/) uses `navigator.clipboard` if available or smallest `polyfill` in the world.
 
@@ -26,14 +26,12 @@ clipboard.writeText('hello')
 
 MIT
 
-[NPMIMGURL]:                https://img.shields.io/npm/v/@cloudcmd/clipboard.svg?style=flat
-[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/clipboard/master.svg?style=flat
-[DependencyStatusIMGURL]:   https://img.shields.io/david/cloudcmd/clipboard.svg?style=flat
-[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMIMGURL]:                https://img.shields.io/npm/v/@cloudcmd/clipboard.svg?style=flat&longCache=true
+[BuildStatusIMGURL]:        https://img.shields.io/travis/cloudcmd/clipboard/master.svg?style=flat&longCache=true
+[DependencyStatusIMGURL]:   https://img.shields.io/david/cloudcmd/clipboard.svg?style=flat&longCache=true
 [CoverageIMGURL]:           https://coveralls.io/repos/cloudcmd/clipboard/badge.svg?branch=master&service=github
 [NPMURL]:                   https://npmjs.org/package/@cloudcmd/clipboard "npm"
 [BuildStatusURL]:           https://travis-ci.org/cloudcmd/clipboard  "Build Status"
 [DependencyStatusURL]:      https://david-dm.org/cloudcmd/clipboard "Dependency Status"
-[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
 [CoverageURL]:              https://coveralls.io/github/cloudcmd/clipboard?branch=master
 
