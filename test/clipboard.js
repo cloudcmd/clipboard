@@ -18,10 +18,9 @@ test('clipboard: readText: original', (t) => {
     const clipboard = rerequire('../lib/clipboard');
     
     clipboard.readText('hello');
+    global.navigator = navigator;
     
     t.ok(readText.calledWith('hello'), 'should call original readText');
-    
-    global.navigator = navigator;
     t.end();
 });
 
@@ -38,7 +37,6 @@ test('clipboard: writeText: original', (t) => {
     const clipboard = rerequire('../lib/clipboard');
     
     clipboard.writeText('hello');
-    
     global.navigator = navigator;
     
     t.ok(writeText.calledWith('hello'), 'should call original readText');
