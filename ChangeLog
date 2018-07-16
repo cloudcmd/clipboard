@@ -1,3 +1,9 @@
+2018.07.16, v1.0.2
+
+fix:
+- (clipboard) firefox does not copy with hidden textarea
+
+
 2018.07.13, v1.0.1
 
 fix:
