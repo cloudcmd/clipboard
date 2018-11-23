@@ -1,13 +1,12 @@
 'use strict';
 
 const test = require('tape');
-const diff = require('sinon-called-with-diff');
-const sinon = diff(require('sinon'));
+const stub = require('@cloudcmd/stub');
 const tryToCatch = require('try-to-catch');
 
 test('clipboard: readText: original', (t) => {
     const {navigator} = global;
-    const readText = sinon.stub();
+    const readText = stub();
     
     global.navigator = {
         clipboard: {
@@ -26,7 +25,7 @@ test('clipboard: readText: original', (t) => {
 
 test('clipboard: writeText: original', (t) => {
     const {navigator} = global;
-    const writeText = sinon.stub();
+    const writeText = stub();
     
     global.navigator = {
         clipboard: {
@@ -70,11 +69,11 @@ test('clipboard: writeText: createElement', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub(),
-        setAttribute: sinon.stub(),
+        select: stub(),
+        setAttribute: stub(),
     };
     
-    const createElement = sinon.stub().returns(el);
+    const createElement = stub().returns(el);
     global.document = createDocument({
         createElement
     });
@@ -99,12 +98,12 @@ test('clipboard: writeText: appendChild', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub(),
-        setAttribute: sinon.stub(),
+        select: stub(),
+        setAttribute: stub(),
     };
     
-    const appendChild = sinon.stub();
-    const createElement = sinon.stub().returns(el);
+    const appendChild = stub();
+    const createElement = stub().returns(el);
     global.document = createDocument({
         createElement,
         appendChild,
@@ -130,11 +129,11 @@ test('clipboard: writeText: select', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub(),
-        setAttribute: sinon.stub(),
+        select: stub(),
+        setAttribute: stub(),
     };
     
-    const createElement = sinon.stub().returns(el);
+    const createElement = stub().returns(el);
     global.document = createDocument({
         createElement
     });
@@ -158,7 +157,7 @@ test('clipboard: writeText: execCommand', async (t) => {
     
     global.navigator = {};
     
-    const execCommand = sinon.stub().returns(true);
+    const execCommand = stub().returns(true);
     global.document = createDocument({
         execCommand,
     });
@@ -183,12 +182,12 @@ test('clipboard: writeText: removeChild', async (t) => {
     global.navigator = {};
     
     const el = {
-        select: sinon.stub(),
-        setAttribute: sinon.stub(),
+        select: stub(),
+        setAttribute: stub(),
     };
     
-    const createElement = sinon.stub().returns(el);
-    const removeChild = sinon.stub();
+    const createElement = stub().returns(el);
+    const removeChild = stub();
     global.document = createDocument({
         removeChild,
         createElement,
@@ -214,7 +213,7 @@ test('clipboard: writeText: reject', async (t) => {
     
     global.navigator = {};
     
-    const execCommand = sinon.stub().returns(false);
+    const execCommand = stub().returns(false);
     global.document = createDocument({
         execCommand,
     });
@@ -236,15 +235,15 @@ test('clipboard: writeText: reject', async (t) => {
 
 function createDocument({createElement, execCommand, removeChild, appendChild} = {}) {
     const el = {
-        select: sinon.stub(),
-        setAttribute: sinon.stub(),
+        select: stub(),
+        setAttribute: stub(),
         style: {},
     };
     
-    createElement = createElement || sinon.stub().returns(el);
-    execCommand = execCommand || sinon.stub().returns(true);
-    removeChild = removeChild || sinon.stub();
-    appendChild = appendChild || sinon.stub();
+    createElement = createElement || stub().returns(el);
+    execCommand = execCommand || stub().returns(true);
+    removeChild = removeChild || stub();
+    appendChild = appendChild || stub();
     
     const body = {
         appendChild,
