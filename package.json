@@ -35,7 +35,8 @@
     "nyc": "^13.1.0",
     "redrun": "^7.0.3",
     "tape": "^4.9.0",
-    "try-to-catch": "^1.0.2"
+    "try-to-catch": "^1.0.2",
+    "try-to-tape": "^1.1.0"
   },
   "license": "MIT",
   "dependencies": {}

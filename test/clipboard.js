@@ -1,20 +1,16 @@
 'use strict';
 
-const test = require('tape');
-const stub = require('@cloudcmd/stub');
 const tryToCatch = require('try-to-catch');
+const tryTo = require('try-to-tape');
 const {reRequire} = require('mock-require');
 
-test('clipboard: readText: original', (t) => {
-    const {navigator} = global;
-    const readText = stub();
-    
-    global.navigator = {
-        clipboard: {
-            readText,
-        }
-    };
-    
+const autoGlobals = require('./.spec/auto-globals');
+const {create} = autoGlobals;
+const tape = require('tape');
+const test = tryTo(autoGlobals(tape));
+
+test('clipboard: readText: original', (t, {navigator}) => {
+    const {readText} = navigator.clipboard;
     const clipboard = reRequire('../lib/clipboard');
     
     clipboard.readText('hello');
@@ -24,20 +20,11 @@ test('clipboard: readText: original', (t) => {
     t.end();
 });
 
-test('clipboard: writeText: original', (t) => {
-    const {navigator} = global;
-    const writeText = stub();
-    
-    global.navigator = {
-        clipboard: {
-            writeText
-        }
-    };
-    
+test('clipboard: writeText: original', (t, {navigator}) => {
+    const {writeText} = navigator.clipboard;
     const clipboard = reRequire('../lib/clipboard');
     
     clipboard.writeText('hello');
-    global.navigator = navigator;
     
     t.ok(writeText.calledWith('hello'), 'should call original readText');
     t.end();
@@ -53,6 +40,7 @@ test('clipboard: readText', (t) => {
         global.navigator = navigator;
         t.end();
     };
+    
     const pass = t.pass.bind(t, 'should reject');
     
     clipboard
@@ -61,163 +49,120 @@ test('clipboard: readText', (t) => {
         .then(end);
 });
 
-test('clipboard: writeText: createElement', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: createElement', async (t, {document}) => {
     global.navigator = {};
     
-    const el = {
-        select: stub(),
-        setAttribute: stub(),
-    };
+    const el = create();
     
-    const createElement = stub().returns(el);
-    global.document = createDocument({
-        createElement
-    });
+    const {createElement} = document;
+    createElement.returns(el);
     
     const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await tryToCatch(writeText, value);
     
     t.ok(createElement.calledWith('textarea'), 'should call createElement');
-    
-    global.navigator = navigator;
-    global.document = document;
     t.end();
 });
 
-test('clipboard: writeText: appendChild', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: appendChild', async (t, {document}) => {
     global.navigator = {};
     
+    const value = 'hello';
     const el = {
-        select: stub(),
-        setAttribute: stub(),
+        ...create(),
+        value,
     };
     
-    const appendChild = stub();
-    const createElement = stub().returns(el);
-    global.document = createDocument({
+    const {
+        body,
         createElement,
+    } = document;
+    
+    const {
         appendChild,
-    });
+    } = body;
+    
+    createElement.returns(el);
     
     const {writeText} = reRequire('../lib/clipboard');
-    const value = 'hello';
     await tryToCatch(writeText, value);
     
     t.ok(appendChild.calledWith(el), 'should call appendChild');
-    
-    global.navigator = navigator;
-    global.document = document;
     t.end();
 });
 
-test('clipboard: writeText: select', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: select', async (t, {document}) => {
     global.navigator = {};
     
-    const el = {
-        select: stub(),
-        setAttribute: stub(),
-    };
+    const el = create();
     
-    const createElement = stub().returns(el);
-    global.document = createDocument({
-        createElement
-    });
+    const {
+        createElement,
+        execCommand,
+    } = document;
+    
+    createElement.returns(el);
+    execCommand.returns(true);
     
     const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await tryToCatch(writeText, value);
     
     t.ok(el.select.calledWith(), 'should call el.select()');
-    
-    global.navigator = navigator;
-    global.document = document;
     t.end();
 });
 
-test('clipboard: writeText: execCommand', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: execCommand', async (t, {document}) => {
     global.navigator = {};
     
-    const execCommand = stub().returns(true);
-    global.document = createDocument({
-        execCommand,
-    });
+    const {execCommand} = document;
+    execCommand.returns(true);
     
     const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await writeText(value);
     
     t.ok(execCommand.calledWith('copy'), 'should call execCommand');
-    
-    global.navigator = navigator;
-    global.document = document;
     t.end();
 });
 
-test('clipboard: writeText: removeChild', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: removeChild', async (t, {document}) => {
     global.navigator = {};
     
+    const value = 'hello';
     const el = {
-        select: stub(),
-        setAttribute: stub(),
+        ...create(),
     };
     
-    const createElement = stub().returns(el);
-    const removeChild = stub();
-    global.document = createDocument({
-        removeChild,
+    const {
         createElement,
-    });
+        execCommand,
+        body,
+    } = document;
+    
+    const {
+        removeChild,
+    } = body;
+    
+    createElement.returns(el);
+    execCommand.returns(true);
     
     const {writeText} = reRequire('../lib/clipboard');
-    const value = 'hello';
     await writeText(value);
     
     t.ok(removeChild.calledWith(el), 'should call removeChild');
-    
-    global.navigator = navigator;
-    global.document = document;
-    
     t.end();
 });
 
-test('clipboard: writeText: reject', async (t) => {
-    const {
-        navigator,
-        document,
-    } = global;
-    
+test('clipboard: writeText: reject', async (t, {document}) => {
     global.navigator = {};
     
-    const execCommand = stub().returns(false);
-    global.document = createDocument({
-        execCommand,
-    });
+    const {
+        execCommand
+    } = document;
+    
+    execCommand.returns(false);
     
     const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
@@ -228,33 +173,6 @@ test('clipboard: writeText: reject', async (t) => {
         t.pass('should reject');
     }
     
-    global.navigator = navigator;
-    global.document = document;
-    
     t.end();
 });
-
-function createDocument({createElement, execCommand, removeChild, appendChild} = {}) {
-    const el = {
-        select: stub(),
-        setAttribute: stub(),
-        style: {},
-    };
-    
-    createElement = createElement || stub().returns(el);
-    execCommand = execCommand || stub().returns(true);
-    removeChild = removeChild || stub();
-    appendChild = appendChild || stub();
-    
-    const body = {
-        appendChild,
-        removeChild,
-    };
-    
-    return {
-        body,
-        createElement,
-        execCommand,
-    };
-}
 
