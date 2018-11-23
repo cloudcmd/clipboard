@@ -3,6 +3,7 @@
 const test = require('tape');
 const stub = require('@cloudcmd/stub');
 const tryToCatch = require('try-to-catch');
+const {reRequire} = require('mock-require');
 
 test('clipboard: readText: original', (t) => {
     const {navigator} = global;
@@ -14,7 +15,7 @@ test('clipboard: readText: original', (t) => {
         }
     };
     
-    const clipboard = rerequire('../lib/clipboard');
+    const clipboard = reRequire('../lib/clipboard');
     
     clipboard.readText('hello');
     global.navigator = navigator;
@@ -33,7 +34,7 @@ test('clipboard: writeText: original', (t) => {
         }
     };
     
-    const clipboard = rerequire('../lib/clipboard');
+    const clipboard = reRequire('../lib/clipboard');
     
     clipboard.writeText('hello');
     global.navigator = navigator;
@@ -46,7 +47,7 @@ test('clipboard: readText', (t) => {
     const {navigator} = global;
     global.navigator = {};
     
-    const clipboard = rerequire('../lib/clipboard');
+    const clipboard = reRequire('../lib/clipboard');
     
     const end = () => {
         global.navigator = navigator;
@@ -78,7 +79,7 @@ test('clipboard: writeText: createElement', async (t) => {
         createElement
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await tryToCatch(writeText, value);
     
@@ -109,7 +110,7 @@ test('clipboard: writeText: appendChild', async (t) => {
         appendChild,
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await tryToCatch(writeText, value);
     
@@ -138,7 +139,7 @@ test('clipboard: writeText: select', async (t) => {
         createElement
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await tryToCatch(writeText, value);
     
@@ -162,7 +163,7 @@ test('clipboard: writeText: execCommand', async (t) => {
         execCommand,
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await writeText(value);
     
@@ -193,7 +194,7 @@ test('clipboard: writeText: removeChild', async (t) => {
         createElement,
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     await writeText(value);
     
@@ -218,7 +219,7 @@ test('clipboard: writeText: reject', async (t) => {
         execCommand,
     });
     
-    const {writeText} = rerequire('../lib/clipboard');
+    const {writeText} = reRequire('../lib/clipboard');
     const value = 'hello';
     try {
         await writeText(value);
@@ -255,10 +256,5 @@ function createDocument({createElement, execCommand, removeChild, appendChild} =
         createElement,
         execCommand,
     };
-}
-
-function rerequire(name) {
-    delete require.cache[require.resolve(name)];
-    return require(name);
 }
 
