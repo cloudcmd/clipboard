@@ -25,7 +25,7 @@
     "6to5": "babel -d legacy lib"
   },
   "devDependencies": {
-    "@cloudcmd/stub": "^2.1.0",
+    "auto-globals": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.1",

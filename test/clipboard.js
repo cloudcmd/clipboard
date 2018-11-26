@@ -4,7 +4,7 @@ const tryToCatch = require('try-to-catch');
 const tryTo = require('try-to-tape');
 const {reRequire} = require('mock-require');
 
-const autoGlobals = require('./.spec/auto-globals');
+const autoGlobals = require('auto-globals');
 const {create} = autoGlobals;
 const tape = require('tape');
 const test = tryTo(autoGlobals(tape));
