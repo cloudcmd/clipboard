@@ -1,7 +1,7 @@
 {
   "name": "@cloudcmd/clipboard",
   "version": "1.0.2",
-  "main": "legacy/clipboard.js",
+  "main": "lib/clipboard.js",
   "author": "coderaiser <mnemonic.enemy@gmail.com> (https://github.com/coderaiser)",
   "description": "Clipboard API polyfill",
   "repository": {
@@ -26,8 +26,6 @@
   },
   "devDependencies": {
     "auto-globals": "^1.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.1",
     "eslint": "^6.8.0",
     "eslint-plugin-node": "^11.0.0",
@@ -44,7 +42,7 @@
     "try-to-tape": "^1.1.0"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": ">=10"
   },
   "license": "MIT",
   "dependencies": {}

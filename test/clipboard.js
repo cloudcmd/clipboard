@@ -1,13 +1,12 @@
 'use strict';
 
 const tryToCatch = require('try-to-catch');
-const tryTo = require('try-to-tape');
 const {reRequire} = require('mock-require');
 
 const autoGlobals = require('auto-globals');
 const {create} = autoGlobals;
-const tape = require('tape');
-const test = tryTo(autoGlobals(tape));
+const tape = require('supertape');
+const test = autoGlobals(tape);
 
 test('clipboard: readText: original', (t, {navigator}) => {
     const {readText} = navigator.clipboard;
@@ -79,9 +78,7 @@ test('clipboard: writeText: appendChild', async (t, {document}) => {
         createElement,
     } = document;
     
-    const {
-        appendChild,
-    } = body;
+    const {appendChild} = body;
     
     createElement.returns(el);
     
@@ -141,9 +138,7 @@ test('clipboard: writeText: removeChild', async (t, {document}) => {
         body,
     } = document;
     
-    const {
-        removeChild,
-    } = body;
+    const {removeChild} = body;
     
     createElement.returns(el);
     execCommand.returns(true);
@@ -158,9 +153,7 @@ test('clipboard: writeText: removeChild', async (t, {document}) => {
 test('clipboard: writeText: reject', async (t, {document}) => {
     global.navigator = {};
     
-    const {
-        execCommand
-    } = document;
+    const {execCommand} = document;
     
     execCommand.returns(false);
     
@@ -169,7 +162,7 @@ test('clipboard: writeText: reject', async (t, {document}) => {
     try {
         await writeText(value);
         t.fail('should not resolve');
-    } catch(e) {
+    } catch {
         t.pass('should reject');
     }
     
