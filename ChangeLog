@@ -1,3 +1,17 @@
+2020.01.28, v2.0.0
+
+feature:
+- (clipboard) drop support of legacy
+- (package) nodemon v2.0.2
+- (package) nyc v15.0.0
+- (package) eslint v6.8.0
+- (package) try-to-catch v2.0.1
+- (package) add auto-globals
+- (package) redrun v7.0.3
+- (package) nyc v13.1.0
+- (clipboard) sinon, sinon-called-with-diff -> @cloudcmd/stub
+
+
 2018.07.16, v1.0.2
 
 fix:
