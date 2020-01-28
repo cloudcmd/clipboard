@@ -9,20 +9,20 @@
     "url": "git://github.com/cloudcmd/clipboard.git"
   },
   "scripts": {
-    "lint": "eslint lib test",
-    "watch:coverage": "npm run watcher -- npm run coverage",
-    "watch:test": "npm run watcher -- npm test",
-    "watcher": "nodemon -w test -w lib --exec",
-    "test": "tape test/*.js",
-    "coverage": "nyc npm test",
-    "report": "nyc report --reporter=text-lcov | coveralls",
-    "build": "redrun build:*",
-    "prebuild": "redrun clean",
-    "build:js": "redrun 6to5 legacy:index",
-    "legacy:index": "echo \"module.exports = require('./clipboard');\" > legacy/index.js",
-    "clean": "rimraf legacy",
-    "wisdom": "npm run build",
-    "6to5": "babel -d legacy lib"
+    "lint": "madrun lint",
+    "fix:lint": "madrun fix:lint",
+    "watch:coverage": "madrun watch:coverage",
+    "watch:test": "madrun watch:test",
+    "watcher": "madrun watcher",
+    "test": "madrun test",
+    "coverage": "madrun coverage",
+    "report": "madrun report",
+    "build": "madrun build",
+    "build:js": "madrun build:js",
+    "legacy:index": "madrun legacy:index",
+    "clean": "madrun clean",
+    "wisdom": "madrun wisdom",
+    "6to5": "madrun 6to5"
   },
   "devDependencies": {
     "auto-globals": "^1.0.0",
@@ -30,13 +30,21 @@
     "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.1",
     "eslint": "^6.8.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-putout": "^3.2.1",
+    "madrun": "^5.4.1",
     "mock-require": "^3.0.2",
-    "nodemon": "^1.17.4",
+    "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
+    "putout": "^7.7.1",
     "redrun": "^7.0.3",
+    "supertape": "^1.2.4",
     "tape": "^4.9.0",
     "try-to-catch": "^2.0.1",
     "try-to-tape": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=8.3"
   },
   "license": "MIT",
   "dependencies": {}
