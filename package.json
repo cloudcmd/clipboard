@@ -16,13 +16,7 @@
     "watcher": "madrun watcher",
     "test": "madrun test",
     "coverage": "madrun coverage",
-    "report": "madrun report",
-    "build": "madrun build",
-    "build:js": "madrun build:js",
-    "legacy:index": "madrun legacy:index",
-    "clean": "madrun clean",
-    "wisdom": "madrun wisdom",
-    "6to5": "madrun 6to5"
+    "report": "madrun report"
   },
   "devDependencies": {
     "auto-globals": "^1.0.0",
@@ -45,5 +39,8 @@
     "node": ">=10"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
