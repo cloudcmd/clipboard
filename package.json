@@ -18,6 +18,12 @@
     "coverage": "madrun coverage",
     "report": "madrun report"
   },
+  "nyc": {
+    "exclude": [
+      "*.js",
+      "test"
+    ]
+  },
   "devDependencies": {
     "auto-globals": "^1.0.0",
     "coveralls": "^3.0.1",
@@ -30,7 +36,7 @@
     "nyc": "^15.0.0",
     "putout": "^7.7.1",
     "supertape": "^1.2.4",
-    "try-to-catch": "^2.0.1"
+    "try-to-catch": "^3.0.0"
   },
   "engines": {
     "node": ">=10"
