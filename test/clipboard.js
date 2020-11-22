@@ -128,9 +128,7 @@ test('clipboard: writeText: removeChild', async (t, {document}) => {
     global.navigator = {};
     
     const value = 'hello';
-    const el = {
-        ...create(),
-    };
+    const el = create();
     
     const {
         createElement,

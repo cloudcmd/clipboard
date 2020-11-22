@@ -3,7 +3,7 @@
 const {run} = require('madrun');
 
 module.exports = {
-    'lint': () => 'putout lib test .madrun.js',
+    'lint': () => 'putout .',
     'fix:lint': () => run('lint', '--fix'),
     'watch:coverage': () => run('watcher', 'npm run coverage'),
     'watch:test': () => run('watcher', 'npm test'),
