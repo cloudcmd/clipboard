@@ -7,8 +7,6 @@ feature:
 - (package) eslint v6.8.0
 - (package) try-to-catch v2.0.1
 - (package) add auto-globals
-- (package) redrun v7.0.3
-- (package) nyc v13.1.0
 - (clipboard) sinon, sinon-called-with-diff -> @cloudcmd/stub
 
 
